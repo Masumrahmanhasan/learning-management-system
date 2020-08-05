@@ -12,7 +12,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="{{ route('admin.categories.index') }}">
                         <div class="item-content">
                             <div class="item-media"><i class="ti-folder"></i></div>
                             <div class="item-inner"><span class="title">Categories</span></div>
