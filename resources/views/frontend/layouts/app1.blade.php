@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-@langrtl
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="rtl">
-@else
+
     <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    @endlangrtl
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,36 +18,36 @@
     <!-- Check if the language is set to RTL, so apply the RTL layouts -->
         <!-- Otherwise apply the normal LTR layouts -->
 
-        <link rel="stylesheet" href="{{asset('assets/css/owl.carousel.css')}}">
-        <link rel="stylesheet" href="{{asset('assets/css/flaticon.css')}}">
-        <link rel="stylesheet" type="text/css" href="{{asset('assets/css/meanmenu.css')}}">
-        <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
-        <link rel="stylesheet" href="{{asset('assets/css/video.min.css')}}">
-        <link rel="stylesheet" href="{{asset('assets/css/lightbox.css')}}">
-        <link rel="stylesheet" href="{{asset('assets/css/progess.css')}}">
-        <link rel="stylesheet" href="{{asset('assets/css/animate.min.css')}}">
-        {{--<link rel="stylesheet" href="{{asset('assets/css/style.css')}}">--}}
+        <link rel="stylesheet" href="{{asset('frontend/css/owl.carousel.css')}}">
+        <link rel="stylesheet" href="{{asset('frontend/css/flaticon.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('frontend/css/meanmenu.css')}}">
+        <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{asset('frontend/css/video.min.css')}}">
+        <link rel="stylesheet" href="{{asset('frontend/css/lightbox.css')}}">
+        <link rel="stylesheet" href="{{asset('frontend/css/progess.css')}}">
+        <link rel="stylesheet" href="{{asset('frontend/css/animate.min.css')}}">
+        {{--<link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">--}}
         <link rel="stylesheet" href="{{ asset('css/frontend.css') }}">
-        <link rel="stylesheet" href="{{asset('assets/css/fontawesome-all.css')}}">
+        <link rel="stylesheet" href="{{asset('frontend/css/fontawesome-all.css')}}">
 
-        <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
+        <link rel="stylesheet" href="{{asset('frontend/css/responsive.css')}}">
 
-        <link rel="stylesheet" href="{{asset('assets/css/colors/switch.css')}}">
-        <link href="{{asset('assets/css/colors/color-2.css')}}" rel="alternate stylesheet" type="text/css"
+        <link rel="stylesheet" href="{{asset('frontend/css/colors/switch.css')}}">
+        <link href="{{asset('frontend/css/colors/color-2.css')}}" rel="alternate stylesheet" type="text/css"
               title="color-2">
-        <link href="{{asset('assets/css/colors/color-3.css')}}" rel="alternate stylesheet" type="text/css"
+        <link href="{{asset('frontend/css/colors/color-3.css')}}" rel="alternate stylesheet" type="text/css"
               title="color-3">
-        <link href="{{asset('assets/css/colors/color-4.css')}}" rel="alternate stylesheet" type="text/css"
+        <link href="{{asset('frontend/css/colors/color-4.css')}}" rel="alternate stylesheet" type="text/css"
               title="color-4">
-        <link href="{{asset('assets/css/colors/color-5.css')}}" rel="alternate stylesheet" type="text/css"
+        <link href="{{asset('frontend/css/colors/color-5.css')}}" rel="alternate stylesheet" type="text/css"
               title="color-5">
-        <link href="{{asset('assets/css/colors/color-6.css')}}" rel="alternate stylesheet" type="text/css"
+        <link href="{{asset('frontend/css/colors/color-6.css')}}" rel="alternate stylesheet" type="text/css"
               title="color-6">
-        <link href="{{asset('assets/css/colors/color-7.css')}}" rel="alternate stylesheet" type="text/css"
+        <link href="{{asset('frontend/css/colors/color-7.css')}}" rel="alternate stylesheet" type="text/css"
               title="color-7">
-        <link href="{{asset('assets/css/colors/color-8.css')}}" rel="alternate stylesheet" type="text/css"
+        <link href="{{asset('frontend/css/colors/color-8.css')}}" rel="alternate stylesheet" type="text/css"
               title="color-8">
-        <link href="{{asset('assets/css/colors/color-9.css')}}" rel="alternate stylesheet" type="text/css"
+        <link href="{{asset('frontend/css/colors/color-9.css')}}" rel="alternate stylesheet" type="text/css"
               title="color-9">
 
         @yield('css')
@@ -95,7 +92,7 @@
                                 </a>
                             </div><!-- /.navbar-header -->
 
-                            <div class="cart-search float-right ul-li">
+                            {{-- <div class="cart-search float-right ul-li">
                                 <ul>
                                     <li>
                                         <a href="{{route('cart.index')}}"><i class="fas fa-shopping-bag"></i>
@@ -106,17 +103,17 @@
                                     </li>
                                 </ul>
                             </div>
-
+ --}}
 
                             <!-- Collect the nav links, forms, and other content for toggling -->
                             <nav class="navbar-menu float-right">
                                 <div class="nav-menu ul-li">
                                     <ul>
-                                        @if(count($custom_menus) > 0 )
-                                            @foreach($custom_menus as $menu)
+                                        {{-- @if(count($custom_menus) > 0 )
+                                            @foreach($custom_menus as $menu) --}}
                                                 {{--@if(is_array($menu['id']) && $menu['id'] == $menu['parent'])--}}
                                                     {{--@if($menu->subs && (count($menu->subs) > 0))--}}
-                                                @if($menu['id'] == $menu['parent'])
+                                                {{-- @if($menu['id'] == $menu['parent'])
                                                     @if(count($menu->subs) == 0)
                                                         <li class="">
                                                             <a href="{{asset($menu->link)}}"
@@ -134,11 +131,11 @@
                                                             </ul>
                                                         </li>
                                                     @endif
-                                                @endif
-                                            @endforeach
-                                        @endif
+                                                @endif --}}
+                                          {{--   @endforeach
+                                        @endif --}}
 
-                                        @if(auth()->check())
+                                       {{--  @if(auth()->check())
                                             <li class="menu-item-has-children ul-li-block">
                                                 <a href="#!">{{ $logged_in_user->name }}</a>
                                                 <ul class="sub-menu">
@@ -153,17 +150,17 @@
                                                     </li>
                                                 </ul>
                                             </li>
-                                        @else
+                                        @else --}}
                                             <li>
                                                 <div class="log-in mt-0">
                                                     <a id="openLoginModal" data-target="#myModal"
                                                        href="#">@lang('navs.general.login')</a>
-                                                    {{--@include('frontend.layouts.modals.loginModal')--}}
+                                                    @include('frontend.layouts.modals.loginModal')
 
                                                 </div>
                                             </li>
-                                        @endif
-                                            @if(count($locales) > 1)
+                                        {{-- @endif --}}
+                                            {{-- @if(count($locales) > 1)
                                             <li class="menu-item-has-children ul-li-block">
                                                 <a href="#">
                                                     <span class="d-md-down-none">@lang('menus.language-picker.language')
@@ -180,12 +177,12 @@
                                                     @endforeach
                                                 </ul>
                                             </li>
-                                        @endif
+                                            @endif --}}
                                     </ul>
                                 </div>
                             </nav>
 
-                            <div class="mobile-menu">
+                            {{-- <div class="mobile-menu">
                                 <div class="logo">
                                     <a href="{{url('/')}}">
                                         <img src={{asset("storage/logos/".config('logo_w_image'))}} alt="Logo">
@@ -262,7 +259,7 @@
                                     </ul>
                                 </nav>
 
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -273,7 +270,7 @@
 
 
         @yield('content')
-        @include('cookieConsent::index')
+     {{--    @include('cookieConsent::index') --}}
 
 
         @include('frontend.layouts.partials.footer')
@@ -285,21 +282,21 @@
     @stack('before-scripts')
 
     <!-- For Js Library -->
-    <script src="{{asset('assets/js/jquery-2.1.4.min.js')}}"></script>
-    <script src="{{asset('assets/js/popper.min.js')}}"></script>
-    <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
-    <script src="{{asset('assets/js/jarallax.js')}}"></script>
-    <script src="{{asset('assets/js/jquery.magnific-popup.min.js')}}"></script>
-    <script src="{{asset('assets/js/lightbox.js')}}"></script>
-    <script src="{{asset('assets/js/jquery.meanmenu.js')}}"></script>
-    <script src="{{asset('assets/js/scrollreveal.min.js')}}"></script>
-    <script src="{{asset('assets/js/jquery.counterup.min.js')}}"></script>
-    <script src="{{asset('assets/js/waypoints.min.js')}}"></script>
-    <script src="{{asset('assets/js/jquery-ui.js')}}"></script>
-    <script src="{{asset('assets/js/gmap3.min.js')}}"></script>
+    <script src="{{asset('frontend/js/jquery-2.1.4.min.js')}}"></script>
+    <script src="{{asset('frontend/js/popper.min.js')}}"></script>
+    <script src="{{asset('frontend/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('frontend/js/owl.carousel.min.js')}}"></script>
+    <script src="{{asset('frontend/js/jarallax.js')}}"></script>
+    <script src="{{asset('frontend/js/jquery.magnific-popup.min.js')}}"></script>
+    <script src="{{asset('frontend/js/lightbox.js')}}"></script>
+    <script src="{{asset('frontend/js/jquery.meanmenu.js')}}"></script>
+    <script src="{{asset('frontend/js/scrollreveal.min.js')}}"></script>
+    <script src="{{asset('frontend/js/jquery.counterup.min.js')}}"></script>
+    <script src="{{asset('frontend/js/waypoints.min.js')}}"></script>
+    <script src="{{asset('frontend/js/jquery-ui.js')}}"></script>
+    <script src="{{asset('frontend/js/gmap3.min.js')}}"></script>
 
-    <script src="{{asset('assets/js/switch.js')}}"></script>
+    <script src="{{asset('frontend/js/switch.js')}}"></script>
 
     <script>
         @if(request()->has('user')  && (request('user') == 'admin'))
@@ -324,11 +321,11 @@
     </script>
 
 
-    <script src="{{asset('assets/js/script.js')}}"></script>
+    <script src="{{asset('frontend/js/script.js')}}"></script>
     <script>
         @if((session()->has('show_login')) && (session('show_login') == true))
         $('#myModal').modal('show');
-                @endif
+        @endif
         var font_color = "{{config('font_color')}}"
         setActiveStyleSheet(font_color);
     </script>
@@ -337,6 +334,6 @@
 
     @stack('after-scripts')
 
-    @include('includes.partials.ga')
+    {{-- @include('includes.partials.ga') --}}
     </body>
     </html>

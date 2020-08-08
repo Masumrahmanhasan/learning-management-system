@@ -11,4 +11,9 @@ class CategoryController extends Controller
     {
     	return view('backend.categories.index');
     }
+
+    public function create()
+    {
+    	return view('backend.categories.create');
+    }
 }
