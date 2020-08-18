@@ -1,11 +1,10 @@
 @extends('backend.layouts.app')
 
-@section('title', __('Categories').' | '.app_name())
+@section('title', __('labels.backend.categories.title').' | '.app_name())
+
 @section('content')
-<div class="container-fluid container-fullw ">
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="card">
+
+	<div class="card">
         <div class="card-header">
 
             <h3 class="page-title d-inline">Categories</h3>
@@ -22,16 +21,17 @@
                         <div class="d-block">
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <a href=""
-                                       style="">All</a>
+                                    <a href="{{ route('admin.categories.index') }}"
+                                       style="{{ request('show_deleted') == 1 ? '' : 'font-weight: 700' }}">{{trans('labels.general.all')}}</a>
                                 </li>
                                 |
                                 <li class="list-inline-item">
-                                    <a href=""
-                                       style=""> Trash</a>
+                                    <a href="{{ route('admin.categories.index') }}?show_deleted=1"
+                                       style="{{ request('show_deleted') == 1 ? 'font-weight: 700' : '' }}">{{trans('labels.general.trash')}}</a>
                                 </li>
                             </ul>
                         </div>
+
 
                         <table id="myTable"
                                class="table table-bordered table-striped @can('category_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
@@ -45,15 +45,17 @@
                                         </th>
                                     @endif
                                 @endcan
-								<th style="text-align:center;">
-                                            <input type="checkbox" class="mass" id="select-all"/>
-                                        </th>
-                                <th>SR</th>
-                                <th>Name</th>
-                                <th>Slug</th>
-                                <th>Icon</th>
-                                <th>Action</th>
-                                
+
+                                <th width="8%">@lang('labels.general.sr_no')</th>
+                                <th>@lang('labels.backend.categories.fields.name')</th>
+                                <th>@lang('labels.backend.categories.fields.slug')</th>
+                                <th>@lang('labels.backend.categories.fields.icon')</th>
+
+                                @if( request('show_deleted') == 1 )
+                                    <th width="15%" >&nbsp; @lang('strings.backend.general.actions')</th>
+                                @else
+                                    <th width="15%" >&nbsp; @lang('strings.backend.general.actions')</th>
+                                @endif
                             </tr>
                             </thead>
 
@@ -65,21 +67,26 @@
             </div>
         </div>
     </div>
-		</div>
-	</div>
-</div>
 	
 @stop
 
 @push('after-scripts')
 	<script>
-		$(document).ready(function(){
-			$('#myTable').DataTable({
-				processing:true,
-				serverSide:false,
-				retrieve:true,
-				dom:'lfBrtip<"actions">',
-				buttons: [
+		$(document).ready(function () {
+            var route = '{{route('admin.categories.get_data')}}';
+
+            @if(request('show_deleted') == 1)
+                route = '{{route('admin.categories.get_data',['show_deleted' => 1])}}';
+            @endif
+
+            $('#myTable').DataTable({
+                processing: true,
+                serverSide: true,
+                iDisplayLength: 10,
+                retrieve: true,
+                select: true,
+                dom: 'lfBrtip<"actions">',
+                buttons: [
                     {
                         extend: 'csv',
                         exportOptions: {
@@ -88,16 +95,69 @@
                         }
                     },
                     {
-                        extend: 'pdf',
+                        extend: 'pdfHtml5',
                         exportOptions: {
-                            columns: [1, 2, 3, 5]
+                            columns: [1, 2, 3, 4]
                         }
                     },
                     'colvis'
                 ],
+                ajax: route,
+                columns: [
+                        @can('category_delete')
+                        @if(request('show_deleted') != 1)
+                    {
+                        "data": function (data) {
+                            return '<input type="checkbox" class="single" name="id[]" value="' + data.id + '" />';
+                        }, "orderable": false, "searchable": false, "name": "id"
+                    },
+                        @endif
+                        @endcan
+                    {
+                        data: "DT_RowIndex", name: 'DT_RowIndex'
+                    },
+                    {data: "name", name: 'name'},
+                    {data: "slug", name: 'slug'},
+                    {data: "icon", name: 'icon'},
+                    {data: "actions", name: "actions"}
+                ],
+                @if(request('show_deleted') != 1)
+                columnDefs: [
+                    {"width": "5%", "targets": 0},
+                    {"className": "text-center", "targets": [0]}
+                ],
+                @endif
+
+                createdRow: function (row, data, dataIndex) {
+                    $(row).attr('data-entry-id', data.id);
+                },
+                
+            });
+
+            @can('category_access')
+            @if(request('show_deleted') != 1)
+            $('.actions').html('<a href="' + '{{ route('admin.categories.mass_destroy') }}' + '" class="btn btn-xs btn-danger js-delete-selected" style="margin-top:0.755em;margin-left: 20px;">Delete selected</a>');
+            @endif
+            @endcan
+            
 
 
-			})
-		})
+            $(document).on('click', '.delete_warning', function () {
+                const link = $(this);
+                const cancel = (link.attr('data-trans-button-cancel')) ? link.attr('data-trans-button-cancel') : 'Cancel';
+
+                const title = (link.attr('data-trans-title')) ? link.attr('data-trans-title') : "{{ trans('labels.backend.categories.not_allowed') }}";
+
+                swal({
+                    title: title,
+                    icon: 'error',
+                    showCancelButton: true,
+                    cancelButtonText: cancel,
+                    type: 'info'
+                })
+            });
+
+
+        });
 	</script>
 @endpush

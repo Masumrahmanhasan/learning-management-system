@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="{{ asset('assets/css/themes/theme-1.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}"/>
         <link rel="stylesheet" href="{{asset('frontend/css/fontawesome-all.css')}}">
-        
+
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
         <link rel="stylesheet"
@@ -29,8 +29,9 @@
               href="https://cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css"/>
         <link rel="stylesheet"
               href="//cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css"/>
-
+        
         @stack('before-styles')
+
         @stack('after-styles')
     </head>
     
@@ -43,9 +44,14 @@
                 @include('backend.includes.header')
                 <div class="main-content">
                     <div class="wrap-content container" id="container">
-
-                        @yield('content')
-                        
+                        <div class="container-fluid container-fullw ng-scope">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @include('includes.partials.messages')
+                                    @yield('content')
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -55,16 +61,19 @@
         </div>
         <script src="{{ asset('assets/js/vendors.bundle.min.js') }}"></script>
         <script src="{{ asset('assets/js/main.min.js') }}"></script>
-
         <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
         <script src="//cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
         <script src="//cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js"></script>
-
-
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+        <script src="{{asset('js/pdfmake.min.js')}}"></script>
+        <script src="{{asset('js/vfs_fonts.js')}}"></script>
         <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
+        
         <script src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
+        
+        <script src="{{ asset('js/main.js')}}"></script>
 
         <script>
             NProgress.configure({ showSpinner: !1 }), NProgress.start(), NProgress.set(0.4);

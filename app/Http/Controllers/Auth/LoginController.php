@@ -51,24 +51,27 @@ class LoginController extends Controller
     }
 
     public function login(Request $request){
-        $validator = Validator::make($request->all(),[
-            'email' => 'required|email',
-            'password' => 'required|min:6'
+
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'required',
+            'password' => 'required',
         ]);
+
         if ($validator->passes()) {
             $credentials = $request->only($this->username(), 'password');
             $authSuccess = Auth::attempt($credentials, $request->has('remember'));
             if($authSuccess){
                 $request->session()->regenerate();
                 if(auth()->user()->active > 0){
-                    if(auth()->user()->is_admin()){
+                    if(auth()->user()->isAdmin()){
                         $redirect = 'dashboard';
                     }else{
                         $redirect = 'back';
                     }
                     return response(['success' => true,'redirect' => $redirect], Response::HTTP_OK);
                 }else{
-                    \Illuminate\Support\Facades\Auth::logout();
+                    Auth::logout();
 
                     return
                         response([
@@ -83,16 +86,17 @@ class LoginController extends Controller
                         'message' => 'Login failed. Account not found blah blah'
                     ], Response::HTTP_FORBIDDEN);
             }
-            
+
         }
+        return response(['success'=>false,'errors' => $validator->errors()]);
     }
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    
+
+    public function logout(Request $request)
     {
-        $this->middleware('guest')->except('logout');
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+        return redirect()->route('frontend.index');
     }
 }

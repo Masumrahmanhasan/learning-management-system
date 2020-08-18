@@ -71,7 +71,7 @@
 
 
     </head>
-    <body class="{{config('layout_type')}}">
+    <body class="wide-layout">
 
     <div id="app">
     {{--<div id="preloader"></div>--}}
@@ -135,9 +135,9 @@
                                           {{--   @endforeach
                                         @endif --}}
 
-                                       {{--  @if(auth()->check())
+                                        @if(auth()->check())
                                             <li class="menu-item-has-children ul-li-block">
-                                                <a href="#!">{{ $logged_in_user->name }}</a>
+                                                <a href="#!">{{ auth()->user()->first_name }}</a>
                                                 <ul class="sub-menu">
                                                     @can('view backend')
                                                         <li>
@@ -150,16 +150,16 @@
                                                     </li>
                                                 </ul>
                                             </li>
-                                        @else --}}
+                                        @else
                                             <li>
                                                 <div class="log-in mt-0">
                                                     <a id="openLoginModal" data-target="#myModal"
                                                        href="#">@lang('navs.general.login')</a>
-                                                    @include('frontend.layouts.modals.loginModal')
+                                                    {{-- @include('frontend.layouts.modals.loginModal') --}}
 
                                                 </div>
                                             </li>
-                                        {{-- @endif --}}
+                                        @endif
                                             {{-- @if(count($locales) > 1)
                                             <li class="menu-item-has-children ul-li-block">
                                                 <a href="#">

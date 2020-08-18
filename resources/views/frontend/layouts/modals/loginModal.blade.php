@@ -1,4 +1,4 @@
-<style>
+]<style>
     .modal-dialog {
         margin: 1.75em auto;
         min-height: calc(100vh - 60px);
@@ -67,7 +67,7 @@
                     <div class="tab-content">
                         <div class="tab-pane container active" id="login">
 
-                            <span class="error-response text-danger"></span>
+                            <span class="error-response"></span>
                             <span class="success-response text-success">{{(session()->get('flash_success'))}}</span>
                             <form class="contact_form" id="loginForm" action="{{route('frontend.auth.login.post')}}"
                                   method="POST" enctype="multipart/form-data">
@@ -80,6 +80,7 @@
                                         ->placeholder(__('validation.attributes.frontend.email'))
                                         ->attribute('maxlength', 191)
                                         }}
+
                                     <span id="login-email-error" class="text-danger"></span>
 
                                 </div>
@@ -274,6 +275,10 @@
                     var $this = $(this);
                     $('.success-response').empty();
                     $('.error-response').empty();
+                    $('#login-email-error').empty();
+                    $('#login-password-error').empty();
+                    $('#login-captcha-error').empty();
+
 
                     $.ajax({
                         type: $this.attr('method'),
@@ -311,7 +316,9 @@
                             var response = $.parseJSON(jqXHR.responseText);
                             console.log(jqXHR)
                             if (response.message) {
-                                $('#login').find('span.error-response').html(response.message)
+                                $('#login').find('span.error-response').
+                                html('<div class="alert alert-warning alert-dismissible fade show" role="alert">'+response.message+
+                                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>  </button></div>')
                             }
                         }
                     });

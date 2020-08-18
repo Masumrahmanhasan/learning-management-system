@@ -3,6 +3,14 @@
 use App\Http\Controllers\Auth\LoginController;
 
 Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function() {
+
+    Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::group(['middleware' => 'password_expires'], function () {
+        // Change Password Routes
+        Route::patch('password/update', [UpdatePasswordController::class, 'update'])->name('password.update');
+    });
+
     Route::group(['middleware' => 'guest'], function() {
         Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
         Route::post('login', [LoginController::class, 'login'])->name('login.post');

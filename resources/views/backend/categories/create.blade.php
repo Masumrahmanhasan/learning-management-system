@@ -1,49 +1,49 @@
 @extends('backend.layouts.app')
 
-@section('title', __('Categories').' | '.app_name())
+@section('title', __('labels.backend.categories.title').' | '.app_name())
 
 @push('after-styles')
-    <link rel="stylesheet" href="{{asset('plugins/bootstrap-iconpicker/css/bootstrap-iconpicker.min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('plugins/bootstrap-iconpicker/css/bootstrap-iconpicker.min.css') }}"/>
 @endpush
 
 @section('content')
 
-<div class="container-fluid container-fullw ">
-	<div class="row">
-		<div class="col-sm-12">
 			<div class="card">
 				<div class="card-header">
-					<h3 class="page-title d-inline">Create Category</h3>
+					<h3 class="page-title d-inline">@lang('labels.backend.categories.create')</h3>
 		            <div class="float-right">
 		                <a href="{{ route('admin.categories.index') }}"
-		                   class="btn btn-info">View Categories</a>
+		                   class="btn btn-info">@lang('labels.backend.categories.view')</a>
 
 		            </div>
 				</div>
 
 				<div class="card-body">
 					<div class="row">
-						<div class="col-12">
+						<div class="col-lg-12">
 							{!! Form::open(['method' => 'POST', 'route' => ['admin.categories.store'], 'files' => true]) !!}
 
 							<div class="row justify-content-center">
-		                        <div class="col-12 col-lg-4 form-group">
+		                        <div class="col-md-4 form-group">
 		                            {!! Form::label('title', trans('labels.backend.categories.fields.name').' *', ['class' => 'control-label']) !!}
-		                            {!! Form::text('name', old('name'), ['class' => 'form-control', 'placeholder' => trans('labels.backend.categories.fields.name'), 'required' => false]) !!}
+		                            {!! Form::text('name', old('name'), 
+		                            ['class' => 'form-control '.($errors->has('name') ? 'border-danger':''), 'placeholder' => trans('labels.backend.categories.fields.name'), 'required' => false]) !!}
 
 		                        </div>
 
 
-		                        <div class="col-12 col-lg-2  form-group">
+		                        <div class="col-lg-2 form-group">
 
-		                                {!! Form::label('icon',  trans('labels.backend.categories.fields.select_icon'), ['class' => 'control-label  d-block']) !!}
-		                                <button class="btn  btn-block btn-default border" id="icon" name="icon"></button>
+		                                {!! Form::label('icon',  trans('labels.backend.categories.fields.select_icon'),['class' =>'control-label ']) !!}
+		                           <button class="btn btn-block btn-default" id="icon" name="icon">
+										
+									</button>
 
 		                        </div>
 
-		                        <div class="col-12 form-group text-center">
+		                        <div class="col-lg-12 form-group text-center">
 
-		                            {!! Form::submit(trans('strings.backend.general.app_save'), ['class' => 'btn mt-auto  btn-danger']) !!}
+		                            {!! Form::submit(trans('strings.backend.general.app_save'), ['class' => 'btn btn-wide btn-danger mt-auto']) !!}
 		                        </div>
 	                    	</div>
 
@@ -51,14 +51,14 @@
 
 						</div>
 					</div>
+
+					
 				</div>
 			</div>
-		</div>
-	</div>
-</div>
 @stop
 
 @push('after-scripts')
+
 	<script src="{{asset('plugins/bootstrap-iconpicker/js/bootstrap-iconpicker.bundle.min.js')}}"></script>
 
     <script>
@@ -70,7 +70,7 @@
                 labelHeader: '{0} of {1} pages',
                 labelFooter: '{0} - {1} of {2} icons',
                 placement: 'bottom', // Only in button tag
-                rows: 5,
+                rows: 4,
                 search: true,
                 searchText: 'Search',
                 selectedClass: 'btn-success',

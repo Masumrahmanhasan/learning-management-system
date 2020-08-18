@@ -51,7 +51,7 @@ $(document).ready(function () {
             //     }
             // },
             {
-                extend: 'pdf',
+                extend: 'pdfHtml5',
                 exportOptions: {
                     columns: ':visible',
                     format: {
@@ -199,7 +199,7 @@ $(document).ready(function () {
         }
     });
 
-    $('.select2').select2();
+    // $('.select2').select2();
 
 });
 
