@@ -21,6 +21,9 @@
         <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}"/>
         <link rel="stylesheet" href="{{asset('frontend/css/fontawesome-all.css')}}">
 
+        <link href="{{ asset('assets/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.min.css')}}" rel="stylesheet" media="screen" />
+        <link href="{{ asset('assets/vendor/select2/dist/css/select2.min.css')}}" rel="stylesheet" media="screen" />
+
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
         <link rel="stylesheet"
@@ -61,6 +64,10 @@
         </div>
         <script src="{{ asset('assets/js/vendors.bundle.min.js') }}"></script>
         <script src="{{ asset('assets/js/main.min.js') }}"></script>
+
+        <script src="{{ asset('assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
+        <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
+
         <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
         <script src="//cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
         <script src="//cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js"></script>

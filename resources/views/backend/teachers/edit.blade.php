@@ -87,8 +87,9 @@
                     </div>
 
                     @php
+
                         $teacherProfile = $teacher->teacherProfile?:'';
-                        $payment_details = $teacher->teacherProfile?json_decode($teacher->teacherProfile->payment_details):new stdClass();
+                            $payment_details = $teacher->teacherProfile?json_decode($teacher->teacherProfile->payment_details):new stdClass();
                     @endphp
 
                     <div class="form-group row">

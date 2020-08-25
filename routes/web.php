@@ -42,3 +42,12 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'user', 'as' => 'admin.',
 Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
     Route::get('/{page?}', [HomeController::class, 'index'])->name('index');
 });
+Route::get('certificate-verification','Backend\CertificateController@getVerificationForm')->name('frontend.certificates.getVerificationForm');
+Route::post('certificate-verification','Backend\CertificateController@verifyCertificate')->name('frontend.certificates.verify');
+Route::get('certificates/download', ['uses' => 'Backend\CertificateController@download', 'as' => 'certificates.download']);
+
+Route::post('newsletter/subscribe', 'Frontend\HomeController@subscribe')->name('subscribe');
+
+if(config('show_offers') == 1){
+    Route::get('offers',['uses' => 'CartController@getOffers', 'as' => 'frontend.offers']);
+}

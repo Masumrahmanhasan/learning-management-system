@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\Auth\Role\RoleController;
 use App\Http\Controllers\Backend\Auth\User\UserAccessController;
 use App\Http\Controllers\Backend\Auth\User\UserConfirmationController;
 use App\Http\Controllers\Backend\Auth\User\UserController;
@@ -62,5 +63,21 @@ Route::group([
             Route::get('delete', [UserStatusController::class, 'delete'])->name('user.delete-permanently');
             Route::get('restore', [UserStatusController::class, 'restore'])->name('user.restore');
 		});
+    });
+
+
+    /*
+     * Role Management
+     */
+    Route::group(['namespace' => 'Role'], function () {
+        Route::get('role', [RoleController::class, 'index'])->name('role.index');
+        Route::get('role/create', [RoleController::class, 'create'])->name('role.create');
+        Route::post('role', [RoleController::class, 'store'])->name('role.store');
+
+        Route::group(['prefix' => 'role/{role}'], function () {
+            Route::get('edit', [RoleController::class, 'edit'])->name('role.edit');
+            Route::patch('/', [RoleController::class, 'update'])->name('role.update');
+            Route::delete('/', [RoleController::class, 'destroy'])->name('role.destroy');
+        });
     });
 });

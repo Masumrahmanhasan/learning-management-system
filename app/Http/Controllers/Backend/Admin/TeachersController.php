@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreTeachersRequest;
+use App\Http\Requests\UpdateTeachersRequest;
+use App\Models\TeacherProfile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -85,7 +88,9 @@ class TeachersController extends Controller
             })
             ->editColumn('status', function ($q) {
                 $html = html()->label(html()->checkbox('')->id($q->id)
-                ->checked(($q->active == 1) ? true : false)->class('switch-input')->attribute('data-id', $q->id)->value(($q->active == 1) ? 1 : 0).'<span class="switch-label"></span><span class="switch-handle"></span>')->class('switch switch-lg switch-3d switch-primary');
+                ->checked(($q->active == 1) ? true : false)->class('switch-input')->attribute('data-id', $q->id)->value(($q->active == 1) ? 1 : 0).'<span class="tgl_body">
+            <span class="tgl_switch"></span> <span class="tgl_track"><span class="tgl_bgd"></span> <span class="tgl_bgd tgl_bgd-negative"></span></span>
+        </span>')->class('tgl big');
                 return $html;
                 // return ($q->active == 1) ? "Enabled" : "Disabled";
             })

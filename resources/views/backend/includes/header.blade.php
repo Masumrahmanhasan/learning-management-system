@@ -31,12 +31,21 @@
                 <i class="ti-check-box"></i> <span class="d-none d-md-block d-lg-block d-xl-block">ACTIVITIES</span>
                 </a>
             </li>
-            <li class="dropdown">
-                <a href class="dropdown-toggle" data-toggle="dropdown"><i class="ti-world"></i> <span class="d-none d-md-block d-lg-block d-xl-block">English</span></a>
-                <div role="menu" class="dropdown-menu dropdown-menu-right dropdown-light">
-                    <a href="#" class="dropdown-item">Deutsch </a><a href="#" class="dropdown-item">English </a><a href="#" class="dropdown-item">Italiano</a>
-                </div>
-            </li>
+            @if(config('locale.status') && count($locales) > 1)
+                <li class="dropdown">
+                    <a href class="dropdown-toggle" data-toggle="dropdown"><i class="ti-world"></i> <span class="d-none d-md-block d-lg-block d-xl-block">
+                        @lang('menus.language-picker.language') ({{ strtoupper(app()->getLocale()) }})</span></a>
+                        
+                    <div role="menu" class="dropdown-menu dropdown-menu-right dropdown-light">
+                        @foreach($locales as $lang)
+                            @if($lang != app()->getLocale())
+                                <a href="{{ '/lang/'.$lang }}" class="dropdown-item">{{(trans('menus.language-picker.langs.'.$lang)) ? trans('menus.language-picker.langs.'.$lang) : $lang  }}
+                                </a>
+                            @endif
+                        @endforeach
+                    </div>
+                </li>
+            @endif
             <li class="dropdown current-user d-none d-md-block d-lg-block d-xl-block">
                 <a href class="dropdown-toggle" data-toggle="dropdown">
                     <img src="assets/images/avatar-1.jpg" alt="Peter" /> <span class="username">Peter <i class="ti-angle-down"></i></span>
@@ -46,7 +55,7 @@
                     <li><a href="pages_calendar.html">My Calendar</a></li>
                     <li><a hef="pages_messages.html">My Messages (3)</a></li>
                     <li><a href="login_lockscreen.html">Lock Screen</a></li>
-                    <li><a href="login_signin.html">Log Out</a></li>
+                    <li><a href="{{ route('frontend.auth.logout') }}">@lang('navs.general.logout')</a></li>
                 </ul>
             </li>
         </ul>

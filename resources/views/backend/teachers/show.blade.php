@@ -49,6 +49,7 @@
                             $teacherProfile = $teacher->teacherProfile?:'';
                             $payment_details = $teacher->teacherProfile?json_decode($teacher->teacherProfile->payment_details):new stdClass();
                         @endphp
+
                         <tr>
                             <th>@lang('labels.teacher.facebook_link')</th>
                             <td>{!! $teacherProfile->facebook_link !!}</td>

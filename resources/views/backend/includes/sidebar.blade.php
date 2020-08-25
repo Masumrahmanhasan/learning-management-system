@@ -3,10 +3,12 @@
         <nav>
             <ul class="main-navigation-menu">
                 <li>
-                    <a href="#">
+                    <a href="{{ route('admin.dashboard') }}">
                         <div class="item-content">
                             <div class="item-media"><i class="ti-home"></i></div>
-                            <div class="item-inner"><span class="title">Dashboard</span></div>
+                            <div class="item-inner"><span class="title">
+                                @lang('menus.backend.sidebar.dashboard')
+                            </span></div>
                         </div>
                     </a>
                 </li>
@@ -19,6 +21,7 @@
                         </div>
                     </a>
                 </li>
+            @if((!$logged_in_user->hasRole('student')) && ($logged_in_user->hasRole('teacher') || $logged_in_user->isAdmin() || $logged_in_user->hasAnyPermission(['course_access','lesson_access','test_access','question_access','bundle_access'])))
 
                 <li>
                     <a href="javascript:void(0)">
@@ -28,12 +31,43 @@
                         </div>
                     </a>
                     <ul class="sub-menu">
+
+                    @can('course_access')
                         <li>
-                            <a href="ui_elements.html"><span class="title">Elements</span></a>
+                            <a href="{{ route('admin.courses.index') }}"><span class="title">
+                                @lang('menus.backend.sidebar.courses.title')
+                            </span></a>
                         </li>
+                    @endcan
+
+                    @can('lesson_access')
+                        <li>
+                            <a href=""><span class="title">
+                                @lang('menus.backend.sidebar.lessons.title')
+                            </span></a>
+                        </li>
+                    @endcan
+
+                    @can('test_access')
+                        <li>
+                            <a href=""><span class="title">
+                                @lang('menus.backend.sidebar.tests.title')
+                            </span></a>
+                        </li>
+                    @endcan
+
+                    @can('question_access')
+                        <li>
+                            <a href=""><span class="title">
+                                @lang('menus.backend.sidebar.questions.title')
+                            </span></a>
+                        </li>
+                    @endcan
                        
                     </ul>
                 </li>
+            @endif
+
             @if ($logged_in_user->isAdmin())
                 <li>
                     <a href="javascript:void(0)">
@@ -51,7 +85,11 @@
                         </li>
 
                         <li>
-                            <a href="ui_elements.html"><span class="title">Role Management</span></a>
+                            <a href="{{ route('admin.auth.role.index') }}">
+                                <span class="title">
+                                @lang('labels.backend.access.roles.management')
+                                </span>
+                            </a>
                         </li>
                        
                     </ul>
