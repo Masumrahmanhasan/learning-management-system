@@ -3,18 +3,24 @@
 namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\FileUploadTrait;
+use App\Http\Requests\StoreCoursesRequest;
+use App\Http\Requests\UpdateCoursesRequest;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\CourseTimeline;
+use App\Models\Lesson;
+use App\Models\Test;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
 
-
 class CoursesController extends Controller
 {
+    use FileUploadTrait;
+
     /**
      * Display a listing of Course.
      *
@@ -36,7 +42,7 @@ class CoursesController extends Controller
         } else {
             $courses = Course::ofTeacher()->get();
         }
-
+        
         return view('backend.courses.index', compact('courses'));
     }
 
@@ -120,9 +126,10 @@ class CoursesController extends Controller
                 }else{
                     $type = 'action-publish';
                 }
-
                 $view .= view('backend.datatable.'.$type)
-                    ->with(['route' => route('admin.courses.publish', ['course' => $q->id])])->render();
+                    ->with(['route' => route('admin.courses.publish', $q->id)])
+                    ->render();
+
                 return $view;
 
             })
@@ -172,7 +179,7 @@ class CoursesController extends Controller
         if (!Gate::allows('course_create')) {
             return abort(401);
         }
-        $teachers = \App\Models\Auth\User::whereHas('roles', function ($q) {
+        $teachers = User::whereHas('roles', function ($q) {
             $q->where('role_id', 2);
         })->get()->pluck('name', 'id');
 
@@ -284,7 +291,7 @@ class CoursesController extends Controller
         if (!Gate::allows('course_edit')) {
             return abort(401);
         }
-        $teachers = \App\Models\Auth\User::whereHas('roles', function ($q) {
+        $teachers = User::whereHas('roles', function ($q) {
             $q->where('role_id', 2);
         })->get()->pluck('name', 'id');
         $categories = Category::where('status', '=', 1)->pluck('name', 'id');
@@ -402,8 +409,8 @@ class CoursesController extends Controller
             return abort(401);
         }
         $teachers = User::get()->pluck('name', 'id');
-        $lessons = \App\Models\Lesson::where('course_id', $id)->get();
-        $tests = \App\Models\Test::where('course_id', $id)->get();
+        $lessons = Lesson::where('course_id', $id)->get();
+        $tests = Test::where('course_id', $id)->get();
 
         $course = Course::findOrFail($id);
         $courseTimeline = $course->courseTimeline()->orderBy('sequence', 'asc')->get();
