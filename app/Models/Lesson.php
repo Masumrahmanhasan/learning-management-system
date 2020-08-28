@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Course;
 use App\Models\CourseTimeline;
 use Illuminate\Database\Eloquent\Model;
+use Mtownsend\ReadTime\ReadTime;
 
 class Lesson extends Model
 {

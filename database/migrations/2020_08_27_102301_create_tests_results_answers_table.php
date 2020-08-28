@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuestionsOptionsTable extends Migration
+class CreateTestsResultsAnswersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateQuestionsOptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('questions_options', function (Blueprint $table) {
+        Schema::create('tests_results_answers', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tests_result_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('question_id')->nullable()->constrained()->onDelete('cascade');
-            $table->text('option_text');
-            $table->tinyInteger('correct')->nullable()->default(0);
-            $table->text('explanation')->nullable();
+            $table->foreignId('option_id')->nullable()->constrained('questions_options')->onDelete('cascade');
+            $table->tinyInteger('correct')->default(0);
             $table->timestamps();
-            $table->softDeletes();
-
-            $table->index(['deleted_at']);        
         });
     }
 
@@ -33,6 +30,6 @@ class CreateQuestionsOptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('questions_options');
+        Schema::dropIfExists('tests_results_answers');
     }
 }

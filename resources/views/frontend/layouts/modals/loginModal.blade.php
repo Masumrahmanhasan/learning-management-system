@@ -1,4 +1,4 @@
-]<style>
+<style>
     .modal-dialog {
         margin: 1.75em auto;
         min-height: calc(100vh - 60px);

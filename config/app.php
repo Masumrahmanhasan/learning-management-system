@@ -195,6 +195,7 @@ return [
         App\Providers\RepositoryServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
         Barryvdh\TranslationManager\ManagerServiceProvider::class,
+        Darryldecode\Cart\CartServiceProvider::class
 
 
     ],
@@ -252,6 +253,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Menu' => Harimayco\Menu\Facades\Menu::class,
         'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class
 
     ],
 
